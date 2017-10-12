@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+    <link href="https://cdn.bootcss.com/bulma/0.6.0/css/bulma.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <my-component></my-component>
+    </div>
+    <div id="component-2">
+        <my-component-2></my-component-2>
+    </div>
+    <div id="component-3">
+        <my-component-3></my-component-3>
+        <my-component-3></my-component-3>
+        <my-component-3></my-component-3>
+    </div>
+    <!-- <div id="component-4">
+        <input v-model="prop" type="text">
+        <child :message="prop"></child>
+    </div> -->
+    <div id="component-5">
+        <p>{{total}}</p>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
