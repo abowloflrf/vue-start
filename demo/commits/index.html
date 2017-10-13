@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Github Commits</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.2/axios.js"></script>
+    <link href="https://cdn.bootcss.com/bulma/0.6.0/css/bulma.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container" id="commits">
+        <h1 class="title">Laravel Recent Commits</h1>
+        <div class="tabs">
+            <ul>
+                <li v-for="branch in branches" v-bind:class="{'is-active':branch===currentBranch}">
+                    <a @click="changeBranch(branch)">{{branch}}</a>
+                </li>
+            </ul>
+        </div>
+        <p class="subtitle">laravel/laravel@{{ currentBranch }}</p>
+        <table class="table is-bordered">
+            <thead>
+                <tr>
+                    <th>SHA</th>
+                    <th>Message</th>
+                    <th>Author</th>
+                    <th>Time</th>
+                </tr>
+                <tbody>
+                    <tr v-for="record in commits">
+                        <td>
+                            <a :href="record.html_url" target="_blank" class="commit">{{ record.sha.slice(0, 7) }}</a>
+                        </td>
+                        <td>{{ record.commit.message | truncate }}</td>
+                        <td>{{ record.commit.author.name }}</td>
+                        <td>{{ record.commit.author.date | formatDate }}</td>
+                    </tr>
+
+                </tbody>
+            </thead>
+        </table>
+    </div>
+    <script>
+        var api_base_url = "https://api.github.com/repos/laravel/laravel/commits?per_page=5&sha="
+        new Vue({
+            el: "#commits",
+            data: {
+                branches: ['master', 'develop'],
+                currentBranch: 'master',
+                commits: null
+            },
+            //当Vue实例在生命周期中被创建时获取数据，即第一次加载时默认展示master中的commits
+            created: function () {
+                this.fetchData()
+            },
+            watch: {
+                currentBranch: 'fetchData'
+            },
+            //过滤器：用于文本的格式化
+            filters: {
+                truncate: function (v) {
+                    //indexOf(str)匹配第一个找到str的位置，这里用于只返回第一个换行前的字符
+                    var newline = v.indexOf('\n')
+                    return newline > 0 ? v.slice(0, newline) : v
+                },
+                //替换返回的事件中的字符T和Z为空格
+                formatDate: function (v) {
+                    return v.replace(/T|Z/g, ' ')
+                }
+            },
+            methods: {
+                //点击不同tab时修改组件中的currentBranch为所点击的tab
+                changeBranch: function (branch) {
+                    this.currentBranch = branch
+                },
+                //currentBranch更改时调用fetchData重新获取数据
+                fetchData: function () {
+                    var self = this
+                    axios.get(api_base_url + self.currentBranch)
+                        .then(function (response) {
+                            self.commits = response.data
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
