@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+    <link href="https://cdn.bootcss.com/bulma/0.6.0/css/bulma.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        .modal-mask {
+            position: fixed;
+            z-index: 9998;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .5);
+            display: table;
+            transition: opacity .3s ease;
+        }
+
+        .modal-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 20px;
+        }
+
+        .modal-container {
+            max-width: 480px;
+            margin: 20px auto;
+            padding: 20px 30px;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-shadow: 6px 6px 36px rgba(0, 0, 0, 0.2);
+            transition: all .3s ease;
+        }
+
+        .modal-enter {
+            opacity: 0;
+        }
+
+        .modal-leave-active {
+            opacity: 0;
+        }
+
+        .modal-enter .modal-container,
+        .modal-leave-active .modal-container {
+            -webkit-transform: scale(1.1);
+            transform: scale(2);
+        }
+    </style>
+
+    <script type="text/x-template" id="modal-template">
+        <transition name="modal">
+            <div class="modal-mask">
+                <div class="modal-wrapper">
+                    <div class="modal-container">
+                        <div class="modal-close" @click="$emit('close')"></div>
+                        <div class="modal-header">
+                            <slot name="header">Modal header</slot>
+                        </div>
+                        <hr>
+                        <div class="modal-body">
+                            <slot name="body">Modal body</slot>
+                        </div>
+                        <div class="modal-footer">
+                            <slot name="footer">Footer</slot>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </script>
+
+    <div id="app" class="container">
+        <button @click="showModal=true" id="show-btn" class="button is-primary">SHOW</button>
+        <modal v-if="showModal" @close="showModal=false">
+            <h1 slot="header" class="title">TITLE</h1>
+            <p slot="body">body</p>
+        </modal>
+
+    </div>
+    <script>
+        Vue.component('modal', {
+            template: '#modal-template'
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                showModal: false
+            }
+        })
+    </script>
+</body>
+
+</html>
