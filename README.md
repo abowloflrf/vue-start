@@ -7,3 +7,4 @@
     - [Grid Component](https://abowloflrf.github.io/vue-start/demo/grid-component/)
     - [Tree View](https://abowloflrf.github.io/vue-start/demo/tree-view/)
     - [Modal](https://abowloflrf.github.io/vue-start/demo/modal)
+    - [Elastic Header View](https://abowloflrf.github.io/vue-start/demo/elastic)
