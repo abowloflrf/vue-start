@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tree View</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+    <link href="https://cdn.bootcss.com/bulma/0.6.0/css/bulma.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: "Fira Code", Consolas, monospace;
+            font-size: 18px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .bold::before {
+            content: "📁";
+        }
+
+        .file-item::before {
+            content: "📄";
+        }
+
+        .item {
+            cursor: pointer;
+        }
+
+        ul {
+            margin-left: 40px;
+        }
+    </style>
+    <script type="text/x-template" id="item-template">
+        <li>
+            <div :class="{bold:isFolder,'file-item':!isFolder}" @click="toggle" @dblclick="changeType">
+                {{model.name}}
+                <span v-if="isFolder">[{{open ? '-' : '+'}}]</span>
+            </div>
+            <ul v-show="open" v-if="isFolder">
+                <item class="item" v-for="model in model.children" :model="model">
+                </item>
+                <!-- 位于一个文件夹下的末尾，用于在此文件夹下添加新文件 -->
+                <li class="add" @click="addChild">+</li>
+            </ul>
+        </li>
+    </script>
+    <ul id="app">
+        <item class="item" :model="treeData"></item>
+    </ul>
+    <script>
+        //初始化数据，childre后为数组，数组中有多个对象，一个文件或文件夹为一个对象，文件对象只有一个name，文件夹对象除了有name还有一个childre，对应也是数组即文件夹下的内容
+        var data = {
+            name: 'My Tree',
+            children: [{
+                    name: 'hello'
+                },
+                {
+                    name: 'wtf'
+                },
+                {
+                    name: "this is a folder",
+                    children: [{
+                            name: 'inside the folder',
+                        },
+                        {
+                            name: "another file"
+                        }
+                    ]
+                }
+            ]
+        }
+        //每一个文件或文件夹就是一个vue实例
+        Vue.component('item', {
+            template: '#item-template',
+            props: {
+                //每个文件或文件夹的数据，即文件/夹名称与文件夹下的文件
+                model: Object
+            },
+            //文件夹默认为关闭状态
+            data: function () {
+                return {
+                    open: false
+                }
+            },
+            computed: {
+                isFolder: function () {
+                    //对象存在且，对象下面childre数组的长度不为0，则判断其为一个文件夹
+                    return this.model.children && this.model.children.length
+                }
+            },
+            methods: {
+                //文件夹打开关闭状态
+                toggle: function () {
+                    if (this.isFolder) {
+                        this.open = !this.open
+                    }
+                },
+                //改变文件为文件夹，操作即为将文件对象下的chilren数组新增一项
+                changeType: function () {
+                    if (!this.isFolder) {
+                        //Vue.set:设置对象的属性，这里将新建一个children数组为空数组，供addChild方法添加item
+                        Vue.set(this.model, 'children', [])
+                        this.addChild()
+                        this.open = true
+                    }
+                },
+                addChild: function () {
+                    this.model.children.push({
+                        name: 'new item'
+                    })
+                }
+            }
+        })
+        var demo = new Vue({
+            el: '#app',
+            data: {
+                treeData: data
+            }
+        })
+    </script>
+</body>
+
+</html>
