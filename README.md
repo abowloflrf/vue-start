@@ -6,3 +6,4 @@
     - [Github Commit](https://abowloflrf.github.io/vue-start/demo/commits/)
     - [Grid Component](https://abowloflrf.github.io/vue-start/demo/grid-component/)
     - [Tree View](https://abowloflrf.github.io/vue-start/demo/tree-view/)
+    - [Modal](https://abowloflrf.github.io/vue-start/demo/modal)
