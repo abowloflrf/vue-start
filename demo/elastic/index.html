@@ -62,7 +62,14 @@
         <div class="dragable-header-view" @mousedown="startDrag" @touchstart="startDrag" @mousemove="onDrag" @touchmove="onDrag"
             @mouseup="stopDrag" @touchend="stopDrag" @mouseleave="stopDrag">
             <svg width="320px" height="480px" class="bg">
-                <path :d="headerPath" fill="#34485d" />
+                <defs>
+                    <filter id="shadow" x="0" y="0" width="200%" height="200%">
+                        <feOffset result="offOut" in="SourceGraphic" dx="0" dy="0" />
+                        <feGaussianBlur result="blurOut" in="offOut" stdDeviation="16" />
+                        <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                    </filter>
+                </defs>
+                <path :d="headerPath" fill="#34485d" filter="url(#shadow)"/>
             </svg>
             <div class="header">
                 <slot name="header"></slot>
