@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chart.js with Vue</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+    <script src="https://cdn.bootcss.com/Chart.js/2.7.0/Chart.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <canvas id="myChart" width="480px" height="320px"></canvas>
+        <pre id="raw">{{ values }}</pre>
+        <div v-for="d in datasets">
+            <input type="range" v-model="d.value" min="0" max="100">
+            <span>{{d.value}}</span>
+        </div>
+    </div>
+    <script>
+        var data = [{
+                label: "A",
+                value: 12
+            },
+            {
+                label: "B",
+                value: 54
+            },
+            {
+                label: "C",
+                value: 88
+            },
+            {
+                label: "D",
+                value: 12
+            },
+            {
+                label: "E",
+                value: 10
+            },
+        ]
+        var chart=null
+        var app = new Vue({
+            el: '#app',
+            data: {
+                datasets: data,
+                caption: "My First Dataset",
+                testData: {
+                    a: 1,
+                    b: 2
+                }
+            },
+            computed: {
+                keys: function () {
+                    var arr = this.datasets.map(function (item) {
+                        return item.label
+                    })
+                    return arr
+                },
+                values: function () {
+                    var arr = this.datasets.map(function (item) {
+                        return parseInt(item.value)
+                    })
+                    return arr
+                }
+            },
+            mounted: function () {
+                this.renderChart()
+            },
+            methods: {
+                renderChart: function () {
+                    chart = new Chart(document.getElementById("myChart"), {
+                        type: "line",
+                        data: {
+                            labels: this.keys,
+                            datasets: [{
+                                backgroundColor: 'rgba(110, 200, 160,0.2)',
+                                borderColor: 'rgba(110, 200, 160,1)',
+                                label: this.caption,
+                                data: this.values
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                        max: 100
+                                    }
+                                }]
+                            }
+                        }
+                    })
+                }
+            },
+            watch: {
+                values: function (val, old) {
+                    chart.data.datasets[0].data=val
+                    chart.update()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
