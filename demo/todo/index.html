@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="todoapp container">
+    <div class="todoapp container" v-cloak>
         <header class="todo-header">
             <h1 class="title">Todo app with Vue
                 <span class="tag is-info" v-if="todos.length > 0">{{remaining}} {{remaining | pluralize}} left</span>
