@@ -15,8 +15,8 @@
     <div class="todoapp container" v-cloak>
         <header class="todo-header">
             <h1 class="title">Todo app with Vue
-                <span class="tag is-info" v-if="todos.length > 0">{{remaining}} {{remaining | pluralize}} left</span>
-                <span class="tag is-success" v-if="todos.length===0">ALL DONE</span>
+                <span class="tag is-info" v-if="remaining > 0">{{remaining}} {{remaining | pluralize}} left</span>
+                <span class="tag is-success" v-if="remaining == 0">ALL DONE</span>
             </h1>
             <input type="text" class="new-todo input is-large" v-model="newTodo" placeholder="添加一项待办" @keyup.enter="addTodo" autofocus
                 autocomplete="off" spellcheck="false">
@@ -52,6 +52,10 @@
             </ul>
         </div>
         <footer v-show="todos.length" class="todo-footer">
+            <p class="has-text-grey" style="font-style:italic;font-size:14px">
+                <code>双击</code>Todo以编辑，
+                <code>Enter</code>保存，
+                <code>Esc</code>恢复</p>
             <button @click="removeCompleted" class="button is-small is-warning">清除所有已完成的任务</button>
         </footer>
     </div>

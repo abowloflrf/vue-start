@@ -46,8 +46,11 @@ body {
 }
 
 .todo .view label {
-    line-height: 30px;
-    padding-left: 45px;
+    line-height: 1.4;
+    margin: 0px 20px 0px 45px;
+    word-break: break-all;
+    display: block;
+    transition: color 0.4s;
 }
 
 .todo .view .delete {
@@ -95,7 +98,12 @@ body {
 .filters .selected {
     border: 1px solid black;
 }
-
+footer button,footer p{
+    display: inline;
+}
+footer button{
+    float: right;
+}
 @media (max-width: 1200px) {
     .container {
         padding: 0 40px;
@@ -105,5 +113,13 @@ body {
 @media (max-width: 600px) {
     .container {
         padding: 0 20px;
+    }
+    footer button{
+        margin-top: 8px;
+        display: block;
+        float: left;
+    }
+    footer p{
+        display: block;
     }
 }
