@@ -7,76 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Todo MVC</title>
     <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
-    <link href="https://cdn.bootcss.com/bulma/0.6.0/css/bulma.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bulma/0.6.0/css/bulma.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <style>
-        body{
-            font-family: "PingFang SC",sans-serif
-        }
-        .todoapp{
-            margin: 40px auto;
-            max-width: 800px;
-        }
-        .todo-header h1{
-            display: inline-block;
-            font-weight: 300;
-        }
-        .todo-header input.new-todo {
-            margin-bottom: 20px;
-        }
-
-        .todo-list .completed label {
-            color: #d9d9d9;
-            text-decoration: line-through;
-        }
-
-        .todo-list .editing .view {
-            display: none;
-        }
-
-        .todo-list .editing .edit {
-            display: inline-block;
-        }
-
-        .todo-list li .edit {
-            display: none;
-        }
-
-        .todo .card {
-            margin-bottom: 10px;
-        }
-        .todo .card .card-content{
-            padding: 15px 25px;
-        }
-        .todo .view label{
-            line-height: 30px;
-        }
-        .todo .view .delete{
-            position: absolute;
-            right: 10px;
-            top:20px;
-        }
-        .filters li {
-            display: inline-block;
-        }
-
-        .filters li a {
-            text-decoration: none;
-            color: black;
-        }
-
-        .filters .selected {
-            border: 1px solid black;
-        }
-    </style>
     <div class="todoapp container">
         <header class="todo-header">
-            <h1 class="title">Todo app with Vue</h1>
-            <span class="tag is-info" v-if="todos.length > 0">{{remaining}} {{remaining | pluralize}} left</span>
-            <span class="tag is-info" v-if="todos.length===0">ALL DONE</span>
-            
+            <h1 class="title">Todo app with Vue
+                <span class="tag is-info" v-if="todos.length > 0">{{remaining}} {{remaining | pluralize}} left</span>
+                <span class="tag is-success" v-if="todos.length===0">ALL DONE</span>
+            </h1>
+
+
             <input type="text" class="new-todo input is-large" v-model="newTodo" placeholder="添加一项待办" @keyup.enter="addTodo" autofocus
                 autocomplete="off" spellcheck="false">
         </header>
@@ -84,7 +27,7 @@
             <div class="tabs" v-show="todos.length">
                 <ul class="filters">
                     <li :class="{ 'is-active': visibility == 'all' }">
-                        <a href="#/all" >All</a>
+                        <a href="#/all">All</a>
                     </li>
                     <li :class="{ 'is-active': visibility == 'active' }">
                         <a href="#/active">Active</a>
@@ -99,7 +42,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="view">
-                                <input type="checkbox" class="checkbox" v-model="todo.completed">
+                                <input type="checkbox" class="toggle" v-model="todo.completed">
                                 <label class="subtitle" @dblclick="editTodo(todo)">{{todo.title}}</label>
                                 <a class="delete" @click="removeTodo(todo)"></a>
                             </div>

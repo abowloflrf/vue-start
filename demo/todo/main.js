@@ -130,7 +130,6 @@ var app = new Vue({
     //自定义指令
     directives: {
         //自定义指令的参数el:所绑定的元素,binding:对象包含属性[name]指令名，[value]指定绑定值,[oldValue]指令绑定前一个值,[expression]绑定值的字符串形式,[arg]传给指令参数,[modifier]一个包含修饰符的对象
-        //TODO: 这个自定义指令是干嘛的
         'todo-focus': function (el, binding) {
             if (binding.value) {
                 el.focus()

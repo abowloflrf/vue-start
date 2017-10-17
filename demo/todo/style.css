@@ -1,0 +1,105 @@
+body {
+    font-family: "PingFang SC", sans-serif
+}
+
+.todoapp {
+    margin: 40px auto;
+    max-width: 900px;
+    min-width: 320px;
+}
+
+.todo-header h1 {
+    display: inline-block;
+}
+
+.todo-header input.new-todo {
+    margin: 20px 0;
+}
+
+.todo-list .completed label {
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
+.todo-list .editing .view {
+    display: none;
+}
+
+.todo-list .editing .edit {
+    display: inline-block;
+}
+
+.todo-list li .edit {
+    display: none;
+}
+
+.todo .card {
+    margin-bottom: 10px;
+}
+
+.todo .card .card-content {
+    padding: 15px 25px;
+}
+
+.todo .view label {
+    line-height: 30px;
+    padding-left: 45px;
+}
+
+.todo .view .delete {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+
+.todo .view .toggle {
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    margin: auto 0;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+.todo .view .toggle:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="5"/></svg>');
+}
+
+.todo .view .toggle:checked:after {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="5"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
+
+.filters li {
+    display: inline-block;
+}
+
+.filters li a {
+    text-decoration: none;
+    color: black;
+}
+
+.filters li a:focus {
+    outline: none;
+}
+
+.filters .selected {
+    border: 1px solid black;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 0 20px;
+    }
+}
